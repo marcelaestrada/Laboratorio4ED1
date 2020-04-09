@@ -17,6 +17,12 @@ namespace Laboratorio4ED1.Controllers
             return View();
         }
 
+        //Get
+        public ActionResult CreateAccount()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Login(FormCollection collection)
         {
