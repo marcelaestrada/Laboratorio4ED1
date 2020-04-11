@@ -11,6 +11,7 @@ namespace Laboratorio4ED1.Controllers
 {
     public class ManagerController : Controller
     {
+
         // GET: Manager
         public ActionResult Index()
         {
@@ -48,32 +49,31 @@ namespace Laboratorio4ED1.Controllers
                     }
                 }
             }
-            else
+            else if (Storage.Instance.usersList == null)
             {
                 return View("CreateAccount");
             }
-                
-
             return View("Index");
         }
 
         [HttpPost]
         public ActionResult CreateAccount(FormCollection collection)
         {
-            //lo de la lista es una prueba, tengo que hacer un recorrido para que se agregue al final
-            try
+            int cont = 0;
+            if (Storage.Instance.usersList[cont]==null)
             {
-                Storage.Instance.usersList[0].Name = collection["Name"];
-                Storage.Instance.usersList[0].Position = collection["Position"];
-                Storage.Instance.usersList[0].Email = collection["Email"];
-                Storage.Instance.usersList[0].Username = collection["Username"];
-                Storage.Instance.usersList[0].Password = collection["Password"];
-                return View("AddTask");
+                Storage.Instance.usersList[cont].Name = collection["Name"];
+                Storage.Instance.usersList[cont].Position = collection["Position"];
+                Storage.Instance.usersList[cont].Email = collection["Email"];
+                Storage.Instance.usersList[cont].Username = collection["Username"];
+                Storage.Instance.usersList[cont].Password = collection["Password"];
             }
-            catch
+            else
             {
-                return View("CreateAccount");
+                cont++;
+                CreateAccount(collection);
             }
+            return View("AddTask");
         }
     }
 }
