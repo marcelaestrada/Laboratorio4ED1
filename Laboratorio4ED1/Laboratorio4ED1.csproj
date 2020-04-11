@@ -128,6 +128,7 @@
     </Compile>
     <Compile Include="Helpers\Storage.cs" />
     <Compile Include="Models\Manager.cs" />
+    <Compile Include="Models\Task.cs" />
     <Compile Include="Models\UserInformation.cs" />
     <Compile Include="ModelViews\ManagerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -23,6 +23,10 @@ namespace Laboratorio4ED1.Controllers
             return View();
         }
 
+        public ActionResult AddTask()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Login(FormCollection collection)
         {
@@ -60,10 +64,10 @@ namespace Laboratorio4ED1.Controllers
         public ActionResult CreateAccount(FormCollection collection)
         {
             int cont = 0;
-            if (Storage.Instance.usersList[cont]==null)
+            if (Storage.Instance.usersList==null)
             {
-                Storage.Instance.usersList[cont].Name = collection["Name"];
-                Storage.Instance.usersList[cont].Position = collection["Position"];
+                Storage.Instance.usersList[cont].Nombre = collection["Name"];
+                Storage.Instance.usersList[cont].Cargo = collection["Position"];
                 Storage.Instance.usersList[cont].Email = collection["Email"];
                 Storage.Instance.usersList[cont].Username = collection["Username"];
                 Storage.Instance.usersList[cont].Password = collection["Password"];
