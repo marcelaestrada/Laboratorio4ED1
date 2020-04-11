@@ -21,5 +21,6 @@ namespace Laboratorio4ED1.Helpers
         }
 
         public List<UserInformation> usersList = new List<UserInformation>();
+
     }
 }

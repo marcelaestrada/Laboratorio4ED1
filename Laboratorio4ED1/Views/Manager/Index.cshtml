@@ -15,28 +15,40 @@
     <br />
     <br />
     <h1 style="text-align: center;">Sign in</h1>
-    @using (Html.BeginForm("Login", "Manager"))
+    @using (Html.BeginForm())
     {
-        @ViewBag.Error
-    <table style="margin: auto;" cellpadding="3" cellspacing="3">
-        <tr>
-            <td>@Html.LabelFor(model => model.manager.user)</td>
-            <td>@Html.TextBoxFor(model => model.manager.user)</td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(model => model.manager.password)</td>
-            <td>@Html.TextBoxFor(model => model.manager.password)</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td><input type="submit" value="Ingresar"/></td>
-        </tr>
-    </table>
-    }
+        @Html.AntiForgeryToken()
+
+<div class="form-horizontal" style="text-align: center">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.manager.user, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.manager.user, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.manager.user, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.LabelFor(model => model.manager.password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.manager.password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.manager.password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Login" class="btn btn-success" />
+        </div>
+    </div>
     <br />
     <br />
-    <div style="text-align: center;" >
+    <div style="text-align: center;">
         @Html.ActionLink("- Crear cuenta -", "CreateAccount");
     </div>
+</div>
+    }
 </body>
 </html>
