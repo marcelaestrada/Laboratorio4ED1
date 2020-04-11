@@ -28,35 +28,33 @@ namespace Laboratorio4ED1.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Login(FormCollection collection)
+        public ActionResult MainPage()
         {
-            if (Storage.Instance.usersList != null)
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(FormCollection collection)
+        {
+            foreach (var item in Storage.Instance.usersList)
             {
-                foreach (var item in Storage.Instance.usersList)
+                if (collection["user"] == item.Username)
                 {
-                    if (collection["user"] == item.Username)
+                    if (collection["password"] == item.Password)
                     {
-                        if (collection["password"] == item.Password)
-                        {
-                            return View("AddTask");
-                        }
-                        else
-                        {
-                            ViewBag.Error = "Contraseña incorrecta, inténtelo de nuevo";
-                            return View("Index");
-                        }
+                        return View("AddTask");
                     }
                     else
                     {
-                        ViewBag.Error = "Usuario inválido, inténtelo de nuevo";
+                        ViewBag.Error = "Contraseña incorrecta, inténtelo de nuevo";
                         return View("Index");
                     }
                 }
-            }
-            else if (Storage.Instance.usersList == null)
-            {
-                return View("CreateAccount");
+                else
+                {
+                    ViewBag.Error = "Usuario inválido, inténtelo de nuevo";
+                    return View("Index");
+                }
             }
             return View("Index");
         }
@@ -72,6 +70,20 @@ namespace Laboratorio4ED1.Controllers
             userinfo.Password = collection["Password"];
             Storage.Instance.usersList.Add(userinfo);
             return View("Index");
+        }
+
+        [HttpPost]
+        public ActionResult AddTask(FormCollection collection)
+        {
+            List<Task> tasks = new List<Task>();
+            Task tareas = new Task();
+            tareas.Titulo = collection["Titulo"];
+            tareas.Descripcion = collection["Descripcion"];
+            tareas.Proyecto = collection["Proyecto"];
+            tareas.Prioridad = collection["Prioridad"];
+            tareas.Entrega = collection["Entrega"];
+            tasks.Add(tareas);
+            return View("MainPage");
         }
     }
 }
