@@ -12,21 +12,49 @@ namespace Laboratorio4ED1.Controllers
     public class ManagerController : Controller
     {
 
-        // GET: Manager
+       
+
+
+
+        #region Developer
+        public ActionResult AddTask()
+        {
+            
+            return View();
+        }
+        #endregion
+
+        #region ProjectManager
+        public ActionResult DevelopersList()
+        {
+            //Tomar de la lista de usuarios todos 
+            //aquellos que son desarrolladores
+            //Para que el PM pueda visualizarlos
+            List<UserInformation> Developers =
+                Storage.Instance.usersList.FindAll(
+                    (data) =>
+                    {
+                        return (data.Cargo.CompareTo("Developer") == 0) ? true : false;
+                    });
+            return View(Developers);
+        }
+        #endregion
+
+
+        #region Shared Views
+        //Login
         public ActionResult Index()
         {
             return View();
         }
-
+        //Sign Up
         public ActionResult CreateAccount()
         {
             return View();
         }
 
-        public ActionResult AddTask()
-        {
-            return View();
-        }
+        #endregion
+
 
         public ActionResult MainPage()
         {
@@ -36,24 +64,37 @@ namespace Laboratorio4ED1.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection collection)
         {
+            //Storage.Instance.InitDebugUsers();
             foreach (var item in Storage.Instance.usersList)
             {
                 if (collection["user"] == item.Username)
                 {
                     if (collection["password"] == item.Password)
                     {
-                        return View("AddTask");
+                        
+                        //Si User es Developer => Add Task
+                        if (item.Cargo.CompareTo("Developer") == 0)
+                        {
+                            return View("AddTask");
+                        }
+                        //Si User es Project Manager => Lista de Usuarios
+                        else if (item.Cargo.CompareTo("Project Manager") == 0)
+                        {
+                            return View("AddTask");
+                        }
+
+                        
                     }
                     else
                     {
                         ViewBag.Error = "Contraseña incorrecta, inténtelo de nuevo";
-                        return View("Index");
+                       // return View("Index"); //Interrumpe el flujo de la app
                     }
                 }
                 else
                 {
                     ViewBag.Error = "Usuario inválido, inténtelo de nuevo";
-                    return View("Index");
+                   // return View("Index"); //Interrumpe el flujo de la app
                 }
             }
             return View("Index");
