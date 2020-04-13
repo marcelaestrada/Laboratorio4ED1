@@ -12,6 +12,7 @@ namespace Laboratorio4ED1.Controllers
     public class ManagerController : Controller
     {
         public bool priority = true;
+
         #region Developer
         public ActionResult AddTask()
         {
@@ -21,7 +22,7 @@ namespace Laboratorio4ED1.Controllers
         #endregion
 
         #region ProjectManager
-        public ActionResult DevelopersList()
+        public List<UserInformation> ListOfDevelopers()
         {
             //Tomar de la lista de usuarios todos 
             //aquellos que son desarrolladores
@@ -32,7 +33,11 @@ namespace Laboratorio4ED1.Controllers
                     {
                         return (data.Cargo.CompareTo("Developer") == 0) ? true : false;
                     });
-            return View(Developers);
+            return Developers;
+        }
+        public ActionResult DevelopersList()
+        {
+            return View(ListOfDevelopers());
         }
         #endregion
 
@@ -76,7 +81,7 @@ namespace Laboratorio4ED1.Controllers
                         //Si User es Project Manager => Lista de Usuarios
                         else if (item.Cargo.CompareTo("Project Manager") == 0)
                         {
-                            return View("AddTask");
+                            return View("DevelopersList", ListOfDevelopers());
                         }
 
                         
