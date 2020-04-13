@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CustomGenerics.Interfaces;
+using System.IO;
 
 namespace CustomGenerics.Interfaces
 {
-    class ILinearDataBase
+    public interface ILinearDataBase<T>
     {
+        void Insert(bool priority, T value);
+        T Delete();
     }
 }

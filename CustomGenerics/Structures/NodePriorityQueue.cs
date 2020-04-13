@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace CustomGenerics.Structures
 {
-    class NodePriorityQueue
+    public class NodePriorityQueue<T> where T : IComparable
     {
+        public T value { get; set; }
+        public NodePriorityQueue<T> Next { get; set; }
     }
 }
