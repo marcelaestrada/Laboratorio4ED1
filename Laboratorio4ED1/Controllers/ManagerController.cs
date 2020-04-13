@@ -11,11 +11,7 @@ namespace Laboratorio4ED1.Controllers
 {
     public class ManagerController : Controller
     {
-
-       
-
-
-
+        public bool priority = true;
         #region Developer
         public ActionResult AddTask()
         {
@@ -116,6 +112,18 @@ namespace Laboratorio4ED1.Controllers
         [HttpPost]
         public ActionResult AddTask(FormCollection collection)
         {
+            PriorityQueueModel qModel = new PriorityQueueModel();
+            qModel.taskName = collection["Titulo"];
+            if (collection["Prioridad"] == "A")
+            {
+                priority = true;
+            }
+            else if (collection["Prioridad"] == "B")
+            {
+                priority = false;
+            }
+            Storage.Instance.pQueue.Insert(priority, qModel);
+
             List<Task> tasks = new List<Task>();
             Task tareas = new Task();
             tareas.Titulo = collection["Titulo"];

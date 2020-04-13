@@ -7,8 +7,8 @@ namespace CustomGenerics.Structures
     public class PriorityQueue<T> : ILinearDataBase<T> where T : IComparable
     {
         NodePriorityQueue<T> firstHigh = null;
-        NodePriorityQueue<T> lastHigh = null;
         NodePriorityQueue<T> firstLow = null;
+        NodePriorityQueue<T> lastHigh = null;
         NodePriorityQueue<T> lastLow = null;
         bool isEmpty(NodePriorityQueue<T> evaluate)
         {
@@ -22,7 +22,7 @@ namespace CustomGenerics.Structures
             }
         }
 
-        public void InsertPriority(bool priority, NodePriorityQueue<T> firstHigh, NodePriorityQueue<T> lastHigh, NodePriorityQueue<T> firstLow, NodePriorityQueue<T> lastLow, T data)
+        void InsertPriority(bool priority, T data)
         {
             NodePriorityQueue<T> aux = new NodePriorityQueue<T>();
             aux.value = data;
@@ -30,30 +30,34 @@ namespace CustomGenerics.Structures
 
             if (priority)
             {
+                NodePriorityQueue<T> aux2 = lastHigh;
                 if (isEmpty(firstHigh))
                 {
                     firstHigh = aux;
                 }
                 else
                 {
-                    lastHigh.Next = aux;
+                    lastHigh = aux;
+                    lastHigh.Previous = aux2;
                 }
             }
             else
             {
+                NodePriorityQueue<T> aux2 = lastLow;
                 if (isEmpty(firstLow))
                 {
                     firstLow = aux;
                 }
                 else
                 {
-                    lastLow.Next = aux;
+                    lastLow = aux;
+                    lastLow.Previous = aux2;
                 }
             }
 
         }
 
-        public T DeleteFromQueue(NodePriorityQueue<T> firstHigh, NodePriorityQueue<T> lastHigh, NodePriorityQueue<T> firstLow, NodePriorityQueue<T> lastLow)
+        T DeleteFromQueue()
         {
             NodePriorityQueue<T> aux = null;
             if (firstHigh != null)
@@ -81,7 +85,7 @@ namespace CustomGenerics.Structures
                 }
                 else
                 {
-                    firstHigh = firstHigh.Next;
+                    firstLow = firstLow.Next;
                 }
             }
             
@@ -89,12 +93,12 @@ namespace CustomGenerics.Structures
         }
         public T Delete()
         {
-            return DeleteFromQueue(firstHigh, lastHigh, firstLow, lastLow);
+            return DeleteFromQueue();
         }
 
         public void Insert(bool priority, T data)
         {
-            InsertPriority(priority, firstHigh, lastHigh, firstLow, lastLow, data);
+            InsertPriority(priority, data);
         }
     }
 }

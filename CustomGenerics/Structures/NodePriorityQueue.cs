@@ -10,5 +10,6 @@ namespace CustomGenerics.Structures
     {
         public T value { get; set; }
         public NodePriorityQueue<T> Next { get; set; }
+        public NodePriorityQueue<T> Previous { get; set; }
     }
 }

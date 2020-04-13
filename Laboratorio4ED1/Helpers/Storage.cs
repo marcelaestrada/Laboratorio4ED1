@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Laboratorio4ED1.Models;
+using CustomGenerics.Structures;
 
 namespace Laboratorio4ED1.Helpers
 {
@@ -21,6 +22,7 @@ namespace Laboratorio4ED1.Helpers
         }
 
         public List<UserInformation> usersList = new List<UserInformation>();
+        public PriorityQueue<PriorityQueueModel> pQueue = new PriorityQueue<PriorityQueueModel>();
         
         public void InitDebugUsers()
         {

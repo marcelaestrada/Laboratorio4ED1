@@ -128,6 +128,7 @@
     </Compile>
     <Compile Include="Helpers\Storage.cs" />
     <Compile Include="Models\Manager.cs" />
+    <Compile Include="Models\PriorityQueueModel.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\UserInformation.cs" />
     <Compile Include="ModelViews\ManagerViewModel.cs" />
@@ -289,6 +290,12 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CustomGenerics\CustomGenerics.csproj">
+      <Project>{403adfe9-d600-4871-a635-f69dd8ac38bc}</Project>
+      <Name>CustomGenerics</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
