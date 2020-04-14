@@ -45,6 +45,7 @@
     <Compile Include="Structures\HashTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structures\Heap.cs" />
+    <Compile Include="Structures\Node.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

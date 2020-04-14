@@ -9,63 +9,100 @@ namespace CustomGenerics.Structures
 {
     public class Heap<T> : INotLinearDataBase<T> where T: IComparable
     {
-        
-        void moveRight(T[] array, int first, int last)
-        {
-            int root = first;
-            while (((root * 2) + 1) <= last)
-            {
-                int left = (root * 2) + 1;
-                int right = (root * 2) + 2;
-                int aux = root;
-                if (array[aux].CompareTo(array[left])==0)
-                {
-                    aux = left;
-                }
+        public Node<T> root = new Node<T>();
+        bool cambio = true;
 
-                if ((right.CompareTo(last) <= 0))
+        static void inOrder(Node<T> aux, T data)
+        {
+            if (aux == null)
+            {
+                aux.value = data;
+            }
+            else
+            {
+                inOrder(aux.left,data);
+                inOrder(aux.right, data);
+            }
+        }
+        
+        void postOrden(Node<T> actual)
+        {
+            T aux2;
+            if (root == null)
+            {
+                root = null;
+            }
+            else
+            {
+                if (root.left.value.CompareTo(root.value)==1)
                 {
-                    if ((array[aux].CompareTo(array[right]) == -1))
+                    aux2 = root.value;
+                    root.value = root.left.value;
+                    root.left.value = aux2;
+                    cambio = false;
+                }
+                if (root.right.value.CompareTo(root.value) == 1)
+                {
+                    aux2 = root.value;
+                    root.value = root.right.value;
+                    root.right.value = aux2;
+                    cambio = false;
+                }
+                postOrden(root.left);
+                postOrden(root.right);
+            }
+            postOrden(root);
+        }
+        void inserting(Node<T> aux, int data)
+        {
+            if (aux == null)
+            {
+                root = aux;
+            }
+            else
+            {
+                Queue<Node<T>> priorityQueue = new Queue<Structures.Node<T>>();
+                priorityQueue.Enqueue(aux);
+
+                while (priorityQueue.Count != 0)
+                {
+                    aux = priorityQueue.Peek();
+                    priorityQueue.Dequeue();
+
+                    if (aux.left == null)
                     {
-                        aux = right;
+                        aux.left = new Node<T>();
+                        break;
+                    }
+                    else
+                    {
+                        priorityQueue.Enqueue(aux.left);
+                    }
+                    if (aux.right == null)
+                    {
+                        aux.right = new Node<T>();
+                        break;
+                    }
+                    else
+                    {
+                        priorityQueue.Enqueue(aux.right);
                     }
                 }
-
-                if (aux != root)
-                {
-                    T aux2 = array[root];
-                    array[root] = array[aux];
-                    array[aux] = aux2;
-                    root = aux;
-                }
-            }
-        }
-        void heapify(T[] array, int first, int last)
-        {
-            int aux = (last - first - 1) / 2;
-            while (aux >= 0)
-            {
-                moveRight(array, aux, last);
-                aux--;
-            }
-        }
-        void heap(T[] array, int size)
-        {
-            heapify(array, 0, (size - 1));
-            int last = size - 1;
-            while (last > 0)
-            {
-                T aux = array[last];
-                array[last] = array[0];
-                array[0] = aux;
-                last--;
-                moveRight(array, 0, last);
             }
         }
 
-        public void Insert(T[] array, int size)
+        void insertPriority(Node<T> aux, int data)
         {
-            heap(array, size);
+            inserting(aux, data);
+            while (cambio)
+            {
+                postOrden(aux);
+            }
+        }
+
+        public void Insert(Node<T> info, int data)
+        {
+            insertPriority(info, data);
         }
     }
 }

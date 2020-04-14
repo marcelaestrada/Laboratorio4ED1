@@ -7,7 +7,8 @@ namespace Laboratorio4ED1.Models
 {
     public class PriorityQueueModel:IComparable
     {
-        public int priority { get; set; }
+        public int Priority { get; set; }
+        public string Tarea { get; set; }
 
         int IComparable.CompareTo(object obj)
         {

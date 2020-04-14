@@ -128,7 +128,6 @@
     </Compile>
     <Compile Include="Helpers\Storage.cs" />
     <Compile Include="Models\Manager.cs" />
-    <Compile Include="Models\Priority.cs" />
     <Compile Include="Models\PriorityQueueModel.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\UserInformation.cs" />

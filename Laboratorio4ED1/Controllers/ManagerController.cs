@@ -6,12 +6,13 @@ using System.Web.Mvc;
 using Laboratorio4ED1.ModelViews;
 using Laboratorio4ED1.Helpers;
 using Laboratorio4ED1.Models;
+using CustomGenerics.Structures;
 
 namespace Laboratorio4ED1.Controllers
 {
     public class ManagerController : Controller
     {
-        public bool priority = true;
+        public Node<PriorityQueueModel> newNode = new Node<PriorityQueueModel>();
 
         #region Developer
         public ActionResult AddTask()
@@ -117,6 +118,21 @@ namespace Laboratorio4ED1.Controllers
         [HttpPost]
         public ActionResult AddTask(FormCollection collection)
         {
+            int prioridad = 0;
+            if (collection["Prioridad"] == "A")
+            {
+                prioridad = 5;
+            }else if(collection["Prioridad"] == "M")
+            {
+                prioridad = 3;
+            }
+            else if (collection["Prioridad"] == "B")
+            {
+                prioridad = 1;
+            }
+            newNode.value.Priority = prioridad;
+            newNode.value.Tarea = collection["Titulo"];
+
             List<Task> tasks = new List<Task>();
             Task tareas = new Task();
             tareas.Titulo = collection["Titulo"];
@@ -125,7 +141,7 @@ namespace Laboratorio4ED1.Controllers
             tareas.Prioridad = collection["Prioridad"];
             tareas.Entrega = collection["Entrega"];
             tasks.Add(tareas);
-            Storage.Instance.heap.Insert(Storage.Instance.priorityArray, Storage.Instance.priorityArray.Length);
+            Storage.Instance.heap.Insert(newNode, newNode.value.Priority);
             return View("MainPage");
         }
     }
