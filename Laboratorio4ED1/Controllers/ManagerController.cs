@@ -127,7 +127,6 @@ namespace Laboratorio4ED1.Controllers
             {
                 priority = false;
             }
-            Storage.Instance.pQueue.Insert(priority, qModel);
 
             List<Task> tasks = new List<Task>();
             Task tareas = new Task();

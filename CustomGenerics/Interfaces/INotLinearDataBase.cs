@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CustomGenerics.Interfaces
 {
-    class INotLinearDataBase
+    public interface INotLinearDataBase<T>
     {
+        void Insert(T[] array, int size);
     }
 }
