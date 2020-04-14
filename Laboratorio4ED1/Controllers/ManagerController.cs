@@ -117,17 +117,6 @@ namespace Laboratorio4ED1.Controllers
         [HttpPost]
         public ActionResult AddTask(FormCollection collection)
         {
-            PriorityQueueModel qModel = new PriorityQueueModel();
-            qModel.taskName = collection["Titulo"];
-            if (collection["Prioridad"] == "A")
-            {
-                priority = true;
-            }
-            else if (collection["Prioridad"] == "B")
-            {
-                priority = false;
-            }
-
             List<Task> tasks = new List<Task>();
             Task tareas = new Task();
             tareas.Titulo = collection["Titulo"];
@@ -136,6 +125,7 @@ namespace Laboratorio4ED1.Controllers
             tareas.Prioridad = collection["Prioridad"];
             tareas.Entrega = collection["Entrega"];
             tasks.Add(tareas);
+            Storage.Instance.heap.Insert(Storage.Instance.priorityArray, Storage.Instance.priorityArray.Length);
             return View("MainPage");
         }
     }
