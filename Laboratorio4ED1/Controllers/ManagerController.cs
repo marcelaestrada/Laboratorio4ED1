@@ -118,8 +118,6 @@ namespace Laboratorio4ED1.Controllers
         [HttpPost]
         public ActionResult AddTask(FormCollection collection)
         {
-            Node<PriorityQueueModel> newNode = new Node<PriorityQueueModel>();
-
             int prioridad = 0;
             if (collection["Prioridad"] == "A")
             {
@@ -132,16 +130,8 @@ namespace Laboratorio4ED1.Controllers
             {
                 prioridad = 1;
             }
-            // newNode.value.Priority = prioridad;
-            //newNode.value.Tarea = collection["Titulo"];
 
-            PriorityQueueModel data = new PriorityQueueModel();
-            data.Priority = prioridad;
-            data.Tarea = collection["Titulo"];
-
-            newNode.value = data;
-            /*newNode.value.SetPriority(prioridad);
-            newNode.value.SetTarea(collection["Titulo"]);*/
+            PriorityQueueModel data = new PriorityQueueModel() { Priority = prioridad, Tarea = collection["Titulo"] };
 
             List<Task> tasks = new List<Task>();
             Task tareas = new Task();
@@ -151,7 +141,7 @@ namespace Laboratorio4ED1.Controllers
             tareas.Prioridad = collection["Prioridad"];
             tareas.Entrega = collection["Entrega"];
             tasks.Add(tareas);
-            Storage.Instance.heap.Insert(newNode, newNode.value.Priority);
+            Storage.Instance.queue.Insert(data.Priority, data.Tarea);
             return View("MainPage");
         }
     }

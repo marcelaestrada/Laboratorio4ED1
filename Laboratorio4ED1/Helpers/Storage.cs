@@ -22,9 +22,8 @@ namespace Laboratorio4ED1.Helpers
         }
 
         public List<UserInformation> usersList = new List<UserInformation>();
-        public int[] priorityArray = new int[10];
-        public Heap<PriorityQueueModel> heap = new Heap<PriorityQueueModel>();
-        
+        public PriorityQueue<PriorityQueueModel> queue = new PriorityQueue<PriorityQueueModel>();
+
         public void InitDebugUsers()
         {
             UserInformation joshua = new UserInformation
