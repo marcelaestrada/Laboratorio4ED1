@@ -44,8 +44,8 @@
     <Compile Include="Interfaces\INotLinearDataBase.cs" />
     <Compile Include="Structures\HashTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Structures\Heap.cs" />
     <Compile Include="Structures\Node.cs" />
+    <Compile Include="Structures\PriorityQueue.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
