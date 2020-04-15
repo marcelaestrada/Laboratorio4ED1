@@ -6,17 +6,9 @@ using System.Threading.Tasks;
 
 namespace CustomGenerics.Structures
 {
-    public class Node<T>
+    class Node<T>
     {
-        public Node<T> left { get; set; }
-        public Node<T> right { get; set; }
         public T value { get; set; }
-
-        //constructor
-        public Node()
-        {
-            left = null;
-            right = null;
-        }
+        public int priority { get; set; }
     }
 }
