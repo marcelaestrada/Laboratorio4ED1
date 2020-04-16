@@ -12,7 +12,7 @@ namespace Laboratorio4ED1.Controllers
 {
     public class ManagerController : Controller
     {
-       // public Node<PriorityQueueModel> newNode = new Node<PriorityQueueModel>();
+        public UserInformation userinfo = new UserInformation();
 
         #region Developer
         public ActionResult AddTask()
@@ -105,7 +105,7 @@ namespace Laboratorio4ED1.Controllers
         [HttpPost]
         public ActionResult CreateAccount(FormCollection collection)
         {
-            UserInformation userinfo = new UserInformation();
+
             userinfo.Nombre = collection["Nombre"];
             userinfo.Cargo = collection["Cargo"];
             userinfo.Email = collection["Email"];
@@ -141,7 +141,7 @@ namespace Laboratorio4ED1.Controllers
             tareas.Prioridad = collection["Prioridad"];
             tareas.Entrega = collection["Entrega"];
             tasks.Add(tareas);
-            Storage.Instance.queue.Insert(data.Priority, data.Tarea);
+            userinfo.queue.Insert(data.Priority, data.Tarea);
             return View("MainPage");
         }
     }
