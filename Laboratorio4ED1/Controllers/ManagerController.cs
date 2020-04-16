@@ -73,7 +73,9 @@ namespace Laboratorio4ED1.Controllers
                 {
                     if (collection["password"] == item.Password)
                     {
-                        
+                        //El user logeado se asigna a current User
+                        Storage.Instance.currentUser = item;
+
                         //Si User es Developer => Add Task
                         if (item.Cargo.CompareTo("Developer") == 0)
                         {
