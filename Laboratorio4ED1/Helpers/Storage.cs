@@ -24,27 +24,9 @@ namespace Laboratorio4ED1.Helpers
         public List<UserInformation> usersList = new List<UserInformation>();
         public PriorityQueue<PriorityQueueModel> queue = new PriorityQueue<PriorityQueueModel>();
 
-        public void InitDebugUsers()
-        {
-            UserInformation joshua = new UserInformation
-            {
-                Cargo = "Developer",
-                Email = "j97valey@gmail.com",
-                Nombre = "Joshua",
-                Password = "123abc",
-            };
+        public UserInformation currentUser = new UserInformation();
 
-            UserInformation raul = new UserInformation
-            {
-                Cargo = "Project Manager",
-                Email = "R97valey@gmail.com",
-                Nombre = "Raul",
-                Password = "123abc",
-            };
-
-            Storage.Instance.usersList.Add(joshua);
-            Storage.Instance.usersList.Add(raul);
-        }
+      
 
     }
 }
