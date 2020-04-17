@@ -1,8 +1,10 @@
-﻿@{
+﻿@using Laboratorio4ED1.Models
+@model Laboratorio4ED1.Models.Task
+
+@{
     Layout = null;
 }
 
-@model Laboratorio4ED1.Models.Task
 <!DOCTYPE html>
 
 <html>
@@ -12,8 +14,7 @@
 </head>
 <body>
     <h1 style="text-align: center;">Agregar una tarea</h1>
-    <h5 style="text-align: center;">En la casilla Prioridad, ingrese "A" para prioridad alta o "B" para prioridad baja</h5>
-    
+
     @using (Html.BeginForm("AddTask", "Manager"))
     {
         @Html.AntiForgeryToken()
@@ -47,10 +48,9 @@
             <br />
             <div class="form-group">
                 @Html.LabelFor(model => model.Prioridad, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Prioridad, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Prioridad, "", new { @class = "text-danger" })
-                </div>
+            <br />
+                @Html.DropDownListFor(model => model.Prioridad, new SelectList(Enum.GetValues(typeof(priorities))),
+               "Seleccione prioridad", new {@class ="form-control"})
             </div>
             <br />
             <div class="form-group">

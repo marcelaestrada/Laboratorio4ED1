@@ -12,7 +12,7 @@ namespace Laboratorio4ED1.Controllers
 {
     public class ManagerController : Controller
     {
-        public UserInformation userinfo = new UserInformation();
+
 
         #region Developer
         public ActionResult AddTask()
@@ -82,7 +82,7 @@ namespace Laboratorio4ED1.Controllers
                             return View("AddTask");
                         }
                         //Si User es Project Manager => Lista de Usuarios
-                        else if (item.Cargo.CompareTo("Project Manager") == 0)
+                        else if (item.Cargo.CompareTo("Manager") == 0)
                         {
                             return View("DevelopersList", ListOfDevelopers());
                         }
@@ -108,27 +108,28 @@ namespace Laboratorio4ED1.Controllers
         public ActionResult CreateAccount(FormCollection collection)
         {
 
-            userinfo.Nombre = collection["Nombre"];
-            userinfo.Cargo = collection["Cargo"];
-            userinfo.Email = collection["Email"];
-            userinfo.Username = collection["Username"];
-            userinfo.Password = collection["Password"];
-            Storage.Instance.usersList.Add(userinfo);
+            Storage.Instance.userinfo.Nombre = collection["Nombre"];
+            Storage.Instance.userinfo.Cargo = collection["Cargo"];
+            Storage.Instance.userinfo.Email = collection["Email"];
+            Storage.Instance.userinfo.Username = collection["Username"];
+            Storage.Instance.userinfo.Password = collection["Password"];
+            Storage.Instance.usersList.Add(Storage.Instance.userinfo);
             return View("Index");
         }
 
         [HttpPost]
         public ActionResult AddTask(FormCollection collection)
         {
+
             int prioridad = 0;
-            if (collection["Prioridad"] == "A")
+            if (collection["Prioridad"] == "Alta")
             {
                 prioridad = 5;
-            }else if(collection["Prioridad"] == "M")
+            }else if(collection["Prioridad"] == "Media")
             {
                 prioridad = 3;
             }
-            else if (collection["Prioridad"] == "B")
+            else if (collection["Prioridad"] == "Baja")
             {
                 prioridad = 1;
             }
@@ -143,7 +144,7 @@ namespace Laboratorio4ED1.Controllers
             tareas.Prioridad = collection["Prioridad"];
             tareas.Entrega = collection["Entrega"];
             tasks.Add(tareas);
-            userinfo.queue.Insert(data.Priority, data.Tarea);
+            Storage.Instance.userinfo.queue.Insert(data.Priority, data.Tarea);
             return View("MainPage");
         }
     }
