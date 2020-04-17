@@ -280,6 +280,7 @@
     <Content Include="Views\Manager\CreateAccount.cshtml" />
     <Content Include="Views\Manager\MainPage.cshtml" />
     <Content Include="Views\Manager\DevelopersList.cshtml" />
+    <Content Include="Views\Manager\GoToUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

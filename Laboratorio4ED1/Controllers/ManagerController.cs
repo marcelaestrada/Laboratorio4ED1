@@ -17,7 +17,7 @@ namespace Laboratorio4ED1.Controllers
         #region Developer
         public ActionResult AddTask()
         {
-            
+
             return View();
         }
         #endregion
@@ -84,21 +84,22 @@ namespace Laboratorio4ED1.Controllers
                         //Si User es Project Manager => Lista de Usuarios
                         else if (item.Cargo.CompareTo("Manager") == 0)
                         {
-                            return View("DevelopersList", ListOfDevelopers());
+                            return View("GoToUsers");
+                            //return View("DevelopersList", ListOfDevelopers());
                         }
 
-                        
+
                     }
                     else
                     {
                         ViewBag.Error = "Contraseña incorrecta, inténtelo de nuevo";
-                       // return View("Index"); //Interrumpe el flujo de la app
+                        // return View("Index"); //Interrumpe el flujo de la app
                     }
                 }
                 else
                 {
                     ViewBag.Error = "Usuario inválido, inténtelo de nuevo";
-                   // return View("Index"); //Interrumpe el flujo de la app
+                    // return View("Index"); //Interrumpe el flujo de la app
                 }
             }
             return View("Index");
@@ -108,12 +109,24 @@ namespace Laboratorio4ED1.Controllers
         public ActionResult CreateAccount(FormCollection collection)
         {
 
-            Storage.Instance.userinfo.Nombre = collection["Nombre"];
+            /*Storage.Instance.userinfo.Nombre = collection["Nombre"];
             Storage.Instance.userinfo.Cargo = collection["Cargo"];
             Storage.Instance.userinfo.Email = collection["Email"];
             Storage.Instance.userinfo.Username = collection["Username"];
             Storage.Instance.userinfo.Password = collection["Password"];
-            Storage.Instance.usersList.Add(Storage.Instance.userinfo);
+            Storage.Instance.usersList.Add(Storage.Instance.userinfo);*/
+
+            UserInformation newUser = new UserInformation
+            {
+                Nombre = collection["Nombre"],
+                Cargo = collection["Cargo"],
+                Email = collection["Email"],
+                Username = collection["Username"],
+                Password = collection["Password"],
+
+            };
+            Storage.Instance.usersList.Add(newUser);
+
             return View("Index");
         }
 
@@ -125,7 +138,8 @@ namespace Laboratorio4ED1.Controllers
             if (collection["Prioridad"] == "Alta")
             {
                 prioridad = 5;
-            }else if(collection["Prioridad"] == "Media")
+            }
+            else if (collection["Prioridad"] == "Media")
             {
                 prioridad = 3;
             }
