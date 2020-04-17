@@ -33,9 +33,8 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink(item.Nombre + "'s List of Tasks", null, new { /*id = item.id*//*Evaluar criterio a mandar*/ }, new { @class = "btn btn-primary btn-lg" })
+
         </td>
     </tr>
 }

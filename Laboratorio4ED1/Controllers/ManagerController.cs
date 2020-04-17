@@ -108,14 +108,6 @@ namespace Laboratorio4ED1.Controllers
         [HttpPost]
         public ActionResult CreateAccount(FormCollection collection)
         {
-
-            /*Storage.Instance.userinfo.Nombre = collection["Nombre"];
-            Storage.Instance.userinfo.Cargo = collection["Cargo"];
-            Storage.Instance.userinfo.Email = collection["Email"];
-            Storage.Instance.userinfo.Username = collection["Username"];
-            Storage.Instance.userinfo.Password = collection["Password"];
-            Storage.Instance.usersList.Add(Storage.Instance.userinfo);*/
-
             UserInformation newUser = new UserInformation
             {
                 Nombre = collection["Nombre"],
