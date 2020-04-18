@@ -12,7 +12,7 @@ namespace Laboratorio4ED1.Controllers
 {
     public class ManagerController : Controller
     {
-
+        //@Html.ActionLink("Add To Cart", "AddToCart", new { id = item.id }, new { @class = "btn btn-primary btn-lg" })
 
         #region Developer
         public ActionResult AddTask()
@@ -25,9 +25,6 @@ namespace Laboratorio4ED1.Controllers
         #region ProjectManager
         public List<UserInformation> ListOfDevelopers()
         {
-            //Tomar de la lista de usuarios todos 
-            //aquellos que son desarrolladores
-            //Para que el PM pueda visualizarlos
             List<UserInformation> Developers =
                 Storage.Instance.usersList.FindAll(
                     (data) =>
@@ -39,6 +36,27 @@ namespace Laboratorio4ED1.Controllers
         public ActionResult DevelopersList()
         {
             return View(ListOfDevelopers());
+        }
+       
+        public ActionResult SeeDeveloperTasks(string Username)
+        {
+            List<string> TasksOfDeveloper = new List<string>();
+
+            Storage.Instance.usersList.Find((user)=> {
+                if (user.Username == Username)
+                {
+                    PriorityQueue<PriorityQueueModel> developerTasks = user.Tasks;
+                    for (int i = developerTasks.size; i >= 0; i--)
+                    {
+                        TasksOfDeveloper.Add(developerTasks.Delete());
+                    }
+                    return true;
+                }
+                else
+                    return false;
+            });
+
+            return View("Index");
         }
         #endregion
 
@@ -150,7 +168,7 @@ namespace Laboratorio4ED1.Controllers
             tareas.Prioridad = collection["Prioridad"];
             tareas.Entrega = collection["Entrega"];
             tasks.Add(tareas);
-            Storage.Instance.userinfo.queue.Insert(data.Priority, data.Tarea);
+            Storage.Instance.userinfo.Tasks.Insert(data.Priority, data.Tarea);
             return View("MainPage");
         }
     }

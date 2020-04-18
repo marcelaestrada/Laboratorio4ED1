@@ -7,7 +7,7 @@ namespace CustomGenerics.Structures
     public class PriorityQueue<T> : INotLinearDataBase<T> where T:IComparable
     {
         List<Node<T>> priorityQueue = new List<Node<T>>();
-        int size = -1;
+        public int size = -1;
 
         int reverseEquation(int x)
         {
@@ -74,6 +74,7 @@ namespace CustomGenerics.Structures
             heapMax(size);
         }
 
+        
         string Deleting()
         {
             if (size > -1)
@@ -96,6 +97,10 @@ namespace CustomGenerics.Structures
             Inserting(value, data);
         }
 
+        /// <summary>
+        /// Return and delete the first values
+        /// </summary>
+        /// <returns></returns>
         public string Delete()
         {
             return Deleting();

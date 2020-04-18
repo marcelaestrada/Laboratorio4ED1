@@ -33,7 +33,7 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink(item.Nombre + "'s List of Tasks", null, new { /*id = item.id*//*Evaluar criterio a mandar*/ }, new { @class = "btn btn-primary btn-lg" })
+            @Html.ActionLink(item.Nombre + "'s List of Tasks", "SeeDeveloperTasks", new { UserName = item.Username }, new { @class = "btn btn-primary btn-lg" })
 
         </td>
     </tr>

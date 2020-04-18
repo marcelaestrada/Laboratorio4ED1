@@ -15,8 +15,8 @@ namespace Laboratorio4ED1
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Manager", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{Username}",
+                defaults: new { controller = "Manager", action = "Index", Username = UrlParameter.Optional }
             );
         }
     }

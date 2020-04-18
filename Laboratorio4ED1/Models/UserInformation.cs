@@ -15,7 +15,7 @@ namespace Laboratorio4ED1.Models
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public PriorityQueue<PriorityQueueModel> queue = new PriorityQueue<PriorityQueueModel>();
+        public PriorityQueue<PriorityQueueModel> Tasks = new PriorityQueue<PriorityQueueModel>();
 
     }
 }
