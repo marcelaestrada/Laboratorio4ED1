@@ -168,7 +168,9 @@ namespace Laboratorio4ED1.Controllers
             tareas.Prioridad = collection["Prioridad"];
             tareas.Entrega = collection["Entrega"];
             tasks.Add(tareas);
-            Storage.Instance.userinfo.Tasks.Insert(data.Priority, data.Tarea);
+           // Storage.Instance.userinfo.Tasks.Insert(data.Priority, data.Tarea);
+           //Buscar al usuario loged y asignarle la nueva tarea, tanto en su pila como en el diccionario. 
+
             return View("MainPage");
         }
     }

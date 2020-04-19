@@ -26,8 +26,8 @@ namespace Laboratorio4ED1.Helpers
 
 
         public UserInformation currentUser = new UserInformation();
+        public HashTable<string, Task> pendingDevelopersTasks = new HashTable<string, Task>(11);
 
-      
 
     }
 }

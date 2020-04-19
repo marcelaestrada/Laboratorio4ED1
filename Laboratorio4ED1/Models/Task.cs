@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Laboratorio4ED1.Models
 {
-    public class Task
+    public class Task : IComparable
     {
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
@@ -17,5 +17,10 @@ namespace Laboratorio4ED1.Models
         {
             return prior.Prioridad.CompareTo(taskPrior.Prioridad);
         };
+
+        public int CompareTo(object comming)
+        {
+            return this.Titulo.CompareTo(((Task)comming).Titulo);
+        }
     }
 }
