@@ -281,6 +281,7 @@
     <Content Include="Views\Manager\MainPage.cshtml" />
     <Content Include="Views\Manager\DevelopersList.cshtml" />
     <Content Include="Views\Manager\GoToUsers.cshtml" />
+    <Content Include="Views\Manager\SeeDeveloperTasks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

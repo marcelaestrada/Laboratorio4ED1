@@ -40,7 +40,8 @@ namespace Laboratorio4ED1.Controllers
        
         public ActionResult SeeDeveloperTasks(string Username)
         {
-            List<string> TasksOfDeveloper = new List<string>();
+            //List<string> TasksOfDeveloper = new List<string>();
+            List<Task> TasksInformation = new List<Task>();
 
             Storage.Instance.usersList.Find((user)=> {
                 if (user.Username == Username)
@@ -48,7 +49,11 @@ namespace Laboratorio4ED1.Controllers
                     PriorityQueue<PriorityQueueModel> developerTasks = user.Tasks;
                     for (int i = developerTasks.size; i >= 0; i--)
                     {
-                        TasksOfDeveloper.Add(developerTasks.Delete());
+                        //TasksOfDeveloper.Add(developerTasks.Delete());
+                        TasksInformation.Add(
+                            Storage.Instance.pendingDevelopersTasks.Search(developerTasks.Delete()));
+
+
                     }
                     return true;
                 }
@@ -56,10 +61,11 @@ namespace Laboratorio4ED1.Controllers
                     return false;
             });
 
+          
             //Retornar la vista de las tareas de los developers, falta acceder al diccionario con cada 
             //Titulo de tarea y mandar la lista tipo task con toda la data de las tareas traida del diccionario
             // a la nueva vista tipo listView
-            return View("Index");
+            return View(TasksInformation);
         }
         #endregion
 
@@ -172,16 +178,12 @@ namespace Laboratorio4ED1.Controllers
                 Prioridad = collection["Prioridad"],
                 Entrega = collection["Entrega"]
             };
-
-            // tasks.Add(nuevaTarea);
-            // Storage.Instance.userinfo.Tasks.Insert(data.Priority, data.Tarea);
-            //Buscar al usuario loged y asignarle la nueva tarea, tanto en su pila como en el diccionario.
-
             Storage.Instance.usersList.Find(
                 (user) => {
 
                     if (user.Username.CompareTo(Storage.Instance.currentUser.Username) == 0)
                     {
+                        //Debug para ver si la data realmente se asigna...
                         user.Tasks.Insert(data.Priority, data.Tarea);
                         Storage.Instance.pendingDevelopersTasks.Insert(nuevaTarea.Titulo, nuevaTarea);
                         return true;

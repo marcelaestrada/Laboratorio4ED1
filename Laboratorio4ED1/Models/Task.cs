@@ -20,7 +20,8 @@ namespace Laboratorio4ED1.Models
 
         public int CompareTo(object comming)
         {
-            return this.Titulo.CompareTo(((Task)comming).Titulo);
+            
+            return this.Titulo.CompareTo(comming.ToString());
         }
     }
 }
