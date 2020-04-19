@@ -56,6 +56,9 @@ namespace Laboratorio4ED1.Controllers
                     return false;
             });
 
+            //Retornar la vista de las tareas de los developers, falta acceder al diccionario con cada 
+            //Titulo de tarea y mandar la lista tipo task con toda la data de las tareas traida del diccionario
+            // a la nueva vista tipo listView
             return View("Index");
         }
         #endregion
@@ -160,16 +163,33 @@ namespace Laboratorio4ED1.Controllers
 
             PriorityQueueModel data = new PriorityQueueModel() { Priority = prioridad, Tarea = collection["Titulo"] };
 
-            List<Task> tasks = new List<Task>();
-            Task tareas = new Task();
-            tareas.Titulo = collection["Titulo"];
-            tareas.Descripcion = collection["Descripcion"];
-            tareas.Proyecto = collection["Proyecto"];
-            tareas.Prioridad = collection["Prioridad"];
-            tareas.Entrega = collection["Entrega"];
-            tasks.Add(tareas);
-           // Storage.Instance.userinfo.Tasks.Insert(data.Priority, data.Tarea);
-           //Buscar al usuario loged y asignarle la nueva tarea, tanto en su pila como en el diccionario. 
+
+            Task nuevaTarea = new Task
+            {
+                Titulo = collection["Titulo"],
+                Descripcion = collection["Descripcion"],
+                Proyecto = collection["Proyecto"],
+                Prioridad = collection["Prioridad"],
+                Entrega = collection["Entrega"]
+            };
+
+            // tasks.Add(nuevaTarea);
+            // Storage.Instance.userinfo.Tasks.Insert(data.Priority, data.Tarea);
+            //Buscar al usuario loged y asignarle la nueva tarea, tanto en su pila como en el diccionario.
+
+            Storage.Instance.usersList.Find(
+                (user) => {
+
+                    if (user.Username.CompareTo(Storage.Instance.currentUser.Username) == 0)
+                    {
+                        user.Tasks.Insert(data.Priority, data.Tarea);
+                        Storage.Instance.pendingDevelopersTasks.Insert(nuevaTarea.Titulo, nuevaTarea);
+                        return true;
+                    }
+                    else return false;
+                       
+                }
+                );
 
             return View("MainPage");
         }
