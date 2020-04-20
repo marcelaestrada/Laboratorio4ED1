@@ -69,7 +69,6 @@ namespace Laboratorio4ED1.Controllers
         }
         #endregion
 
-
         #region Shared Views
         //Login
         public ActionResult Index()
@@ -82,13 +81,27 @@ namespace Laboratorio4ED1.Controllers
             return View();
         }
 
-        #endregion
-
-
         public ActionResult MainPage()
         {
-            return View();
+            Task siguienteTarea = new Task();
+            if (Storage.Instance.currentUser.Tasks != null)
+            {
+                string siguiente = Storage.Instance.currentUser.Tasks.Delete();
+                siguienteTarea = Storage.Instance.pendingDevelopersTasks.Search(siguiente);
+
+            }
+            else
+            {
+                siguienteTarea.Titulo = "No hay tareas pendientes";
+                siguienteTarea.Descripcion = "";
+                siguienteTarea.Proyecto = "";
+                siguienteTarea.Prioridad = "";
+                siguienteTarea.Entrega = "";
+            }
+
+            return View(siguienteTarea);
         }
+        #endregion
 
         [HttpPost]
         public ActionResult Index(FormCollection collection)
@@ -106,7 +119,15 @@ namespace Laboratorio4ED1.Controllers
                         //Si User es Developer => Add Task
                         if (item.Cargo.CompareTo("Developer") == 0)
                         {
-                            return View("AddTask");
+                            if (item.Tasks != null)
+                            {
+                                return View("MainPage");
+                            }
+                            else
+                            {
+                                return View("AddTask");
+                            }
+                            
                         }
                         //Si User es Project Manager => Lista de Usuarios
                         else if (item.Cargo.CompareTo("Manager") == 0)
@@ -195,5 +216,7 @@ namespace Laboratorio4ED1.Controllers
 
             return View("MainPage");
         }
+
+
     }
 }
