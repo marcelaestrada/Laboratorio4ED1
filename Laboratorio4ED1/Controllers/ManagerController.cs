@@ -81,22 +81,27 @@ namespace Laboratorio4ED1.Controllers
             return View();
         }
 
-        public ActionResult MainPage()
+        public ActionResult Menu()
+        {
+            return View();
+        }
+
+        public ActionResult SeeTask()
         {
             Task siguienteTarea = new Task();
-            if (Storage.Instance.currentUser.Tasks != null)
-            {
-                string siguiente = Storage.Instance.currentUser.Tasks.Delete();
-                siguienteTarea = Storage.Instance.pendingDevelopersTasks.Search(siguiente);
+            string siguiente = Storage.Instance.currentUser.Tasks.Delete();
 
-            }
-            else
+            if (siguiente=="No hay tareas pendientes")
             {
                 siguienteTarea.Titulo = "No hay tareas pendientes";
                 siguienteTarea.Descripcion = "";
                 siguienteTarea.Proyecto = "";
                 siguienteTarea.Prioridad = "";
                 siguienteTarea.Entrega = "";
+            }
+            else
+            {
+                siguienteTarea = Storage.Instance.pendingDevelopersTasks.Search(siguiente);
             }
 
             return View(siguienteTarea);
@@ -119,14 +124,7 @@ namespace Laboratorio4ED1.Controllers
                         //Si User es Developer => Add Task
                         if (item.Cargo.CompareTo("Developer") == 0)
                         {
-                            if (item.Tasks != null)
-                            {
-                                return View("MainPage");
-                            }
-                            else
-                            {
-                                return View("AddTask");
-                            }
+                            return View("Menu");
                             
                         }
                         //Si User es Project Manager => Lista de Usuarios
@@ -205,7 +203,7 @@ namespace Laboratorio4ED1.Controllers
                     if (user.Username.CompareTo(Storage.Instance.currentUser.Username) == 0)
                     {
                         //Debug para ver si la data realmente se asigna...
-                        user.Tasks.Insert(data.Priority, data.Tarea);
+                        Storage.Instance.currentUser.Tasks.Insert(data.Priority, data.Tarea);
                         Storage.Instance.pendingDevelopersTasks.Insert(nuevaTarea.Titulo, nuevaTarea);
                         return true;
                     }
@@ -214,7 +212,7 @@ namespace Laboratorio4ED1.Controllers
                 }
                 );
 
-            return View("MainPage");
+            return View("Menu");
         }
 
 

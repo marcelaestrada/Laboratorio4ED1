@@ -1,0 +1,64 @@
+﻿@using Laboratorio4ED1.Models
+@model Laboratorio4ED1.Models.Task
+
+@{
+    ViewBag.Title = "Tareas pendientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <br />
+    <br />
+    <div>
+        <b>
+            <big>
+                    @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            </big>
+        </b>
+        @Html.DisplayFor(modelItem => Model.Titulo)
+        <br />
+        <b>
+            <big>
+                    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            </big>
+        </b>
+        @Html.DisplayFor(modelItem => Model.Descripcion)
+        <br />
+        <b>
+            <big>
+                    @Html.LabelFor(model => model.Proyecto, htmlAttributes: new { @class = "control-label col-md-2" })
+            </big>
+        </b>
+        @Html.DisplayFor(modelItem => Model.Proyecto)
+        <br />
+        <b>
+            <big>
+                    @Html.LabelFor(model => model.Prioridad, htmlAttributes: new { @class = "control-label col-md-2" })
+            </big>
+        </b>
+        @Html.DisplayFor(modelItem => Model.Prioridad)
+        <br />
+        <b>
+            <big>
+                    @Html.LabelFor(model => model.Entrega, htmlAttributes: new { @class = "control-label col-md-2" })
+            </big>
+        </b>
+        @Html.DisplayFor(modelItem => Model.Entrega)
+
+    </div>
+    <br />
+    <br />
+    <div style="text-align:right">
+        @Html.ActionLink("- Siguiente tarea ", "SeeTask")
+        @Html.ActionLink("- Agregar tarea -", "AddTask")
+        @Html.ActionLink(" Cerrar sesion -", "Index")
+    </div>
+</body>
+</html>

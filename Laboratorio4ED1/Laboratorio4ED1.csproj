@@ -278,10 +278,11 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Manager\CreateAccount.cshtml" />
-    <Content Include="Views\Manager\MainPage.cshtml" />
     <Content Include="Views\Manager\DevelopersList.cshtml" />
     <Content Include="Views\Manager\GoToUsers.cshtml" />
     <Content Include="Views\Manager\SeeDeveloperTasks.cshtml" />
+    <Content Include="Views\Manager\Menu.cshtml" />
+    <Content Include="Views\Manager\SeeTask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

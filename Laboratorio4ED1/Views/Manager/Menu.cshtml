@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Main menu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div style="align-content: center">
+        <br />
+        @Html.ActionLink("Agregar una tarea nueva", "AddTask", null, new { @class = "btn btn-primary btn-lg" })
+        <br />
+        <br />
+        @Html.ActionLink("Ver siguiente tarea", "SeeTask", null, new { @class = "btn btn-primary btn-lg" })
+    </div>
+</body>
+</html>

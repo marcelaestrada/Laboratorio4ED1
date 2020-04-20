@@ -88,7 +88,7 @@ namespace CustomGenerics.Structures
             }
             else
             {
-                throw new Exception("is empty");
+                return "No hay tareas pendientes";
             }
         }
 
