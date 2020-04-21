@@ -12,7 +12,6 @@ namespace Laboratorio4ED1.Controllers
 {
     public class ManagerController : Controller
     {
-        //@Html.ActionLink("Add To Cart", "AddToCart", new { id = item.id }, new { @class = "btn btn-primary btn-lg" })
 
         #region Developer
         public ActionResult AddTask()
@@ -111,7 +110,6 @@ namespace Laboratorio4ED1.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection collection)
         {
-            //Storage.Instance.InitDebugUsers();
             foreach (var item in Storage.Instance.usersList)
             {
                 if (collection["user"] == item.Username)
@@ -131,7 +129,6 @@ namespace Laboratorio4ED1.Controllers
                         else if (item.Cargo.CompareTo("Manager") == 0)
                         {
                             return View("GoToUsers");
-                            //return View("DevelopersList", ListOfDevelopers());
                         }
 
 
@@ -139,13 +136,11 @@ namespace Laboratorio4ED1.Controllers
                     else
                     {
                         ViewBag.Error = "Contraseña incorrecta, inténtelo de nuevo";
-                        // return View("Index"); //Interrumpe el flujo de la app
                     }
                 }
                 else
                 {
                     ViewBag.Error = "Usuario inválido, inténtelo de nuevo";
-                    // return View("Index"); //Interrumpe el flujo de la app
                 }
             }
             return View("Index");
@@ -154,6 +149,7 @@ namespace Laboratorio4ED1.Controllers
         [HttpPost]
         public ActionResult CreateAccount(FormCollection collection)
         {
+ 
             UserInformation newUser = new UserInformation
             {
                 Nombre = collection["Nombre"],
@@ -163,6 +159,7 @@ namespace Laboratorio4ED1.Controllers
                 Password = collection["Password"],
 
             };
+
             Storage.Instance.usersList.Add(newUser);
 
             return View("Index");
@@ -171,6 +168,7 @@ namespace Laboratorio4ED1.Controllers
         [HttpPost]
         public ActionResult AddTask(FormCollection collection)
         {
+            #region
 
             int prioridad = 0;
             if (collection["Prioridad"] == "Alta")
@@ -185,6 +183,8 @@ namespace Laboratorio4ED1.Controllers
             {
                 prioridad = 1;
             }
+
+            #endregion
 
             PriorityQueueModel data = new PriorityQueueModel() { Priority = prioridad, Tarea = collection["Titulo"] };
 

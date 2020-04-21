@@ -30,24 +30,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Proyecto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prioridad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Entrega)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Proyecto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prioridad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Entrega)
+            </td>
+        </tr>
+    }
 
 </table>
+<br />
+<br />
+<div style="text-align:right">
+    @Html.ActionLink("- Cerrar sesion -", "Index")
+</div>
