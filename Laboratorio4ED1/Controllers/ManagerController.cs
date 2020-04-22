@@ -45,14 +45,19 @@ namespace Laboratorio4ED1.Controllers
             Storage.Instance.usersList.Find((user)=> {
                 if (user.Username == Username)
                 {
-                    PriorityQueue<PriorityQueueModel> developerTasks = user.Tasks;
-                    for (int i = developerTasks.size; i >= 0; i--)
+                    List<Node<PriorityQueueModel>> developerTasks = user.Tasks.CopyOfData();
+                    /* for (int i = developerTasks.size; i >= 0; i--)
+                     {
+                         //TasksOfDeveloper.Add(developerTasks.Delete());
+                         TasksInformation.Add(
+                             Storage.Instance.pendingDevelopersTasks.Search(developerTasks.Delete()));
+
+
+                     }*/
+                    foreach (var item in developerTasks)
                     {
-                        //TasksOfDeveloper.Add(developerTasks.Delete());
                         TasksInformation.Add(
-                            Storage.Instance.pendingDevelopersTasks.Search(developerTasks.Delete()));
-
-
+                             Storage.Instance.pendingDevelopersTasks.Search(item.value));
                     }
                     return true;
                 }

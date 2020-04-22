@@ -4,7 +4,7 @@ using CustomGenerics.Interfaces;
 
 namespace CustomGenerics.Structures
 {
-    public class PriorityQueue<T> : INotLinearDataBase<T> where T:IComparable
+    public class PriorityQueue<T> : INotLinearDataBase<T>  where T:IComparable
     {
         List<Node<T>> priorityQueue = new List<Node<T>>();
         public int size = -1;
@@ -104,6 +104,28 @@ namespace CustomGenerics.Structures
         public string Delete()
         {
             return Deleting();
+        }
+
+        /// <summary>
+        /// Return the head value of the queue without remove it. 
+        /// </summary>
+        /// <returns></returns>
+        public string Peek()
+        {
+            if (size > -1)
+                return priorityQueue[0].value;
+            else
+                return "No hay tareas pendientes";
+        }
+
+        /// <summary>
+        /// Crea una copia de la lista de prioridad.
+        /// </summary>
+        public List<Node<T>> CopyOfData()
+        {
+            var CopyDataList = this.priorityQueue;
+
+            return CopyDataList;
         }
     }
 }
