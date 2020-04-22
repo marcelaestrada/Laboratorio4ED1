@@ -12,6 +12,7 @@ namespace Laboratorio4ED1.Models
         public string Proyecto { get; set; }
         public string Prioridad { get; set; }
         public string Entrega { get; set; }
+        public string UserName { get; set; }
 
         public static Comparison<Task> SearchByPriority = delegate (Task prior, Task taskPrior)
         {

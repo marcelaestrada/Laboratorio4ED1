@@ -13,6 +13,8 @@ namespace Laboratorio4ED1.Controllers
     public class ManagerController : Controller
     {
 
+       
+
         #region Developer
         public ActionResult AddTask()
         {
@@ -202,7 +204,8 @@ namespace Laboratorio4ED1.Controllers
                 Descripcion = collection["Descripcion"],
                 Proyecto = collection["Proyecto"],
                 Prioridad = collection["Prioridad"],
-                Entrega = collection["Entrega"]
+                Entrega = collection["Entrega"],
+                UserName = Storage.Instance.currentUser.Username
             };
             Storage.Instance.usersList.Find(
                 (user) => {
