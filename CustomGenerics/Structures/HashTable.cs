@@ -91,5 +91,30 @@ namespace CustomGenerics.Structures
 
         }
 
+        /// <summary>
+        /// Return the complete data set in the hashmap, 
+        /// like List<T>
+        /// </summary>
+        /// <returns></returns>
+        public List<T> AllDataLikeList()
+        {
+            List<T> retorno = new List<T>();
+
+            foreach (var item in this.dataArray)
+            {
+                if (item != null)
+                {
+                    foreach (var internItem in item)
+                    {
+                        retorno.Add(internItem);
+                    }
+                }
+                
+            }
+
+            return retorno;
+
+        }
+
     }
 }
