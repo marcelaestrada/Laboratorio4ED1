@@ -89,7 +89,7 @@ namespace Laboratorio4ED1.Controllers
             return View();
         }
 
-        public ActionResult SeeTask()
+        public Task SiguienteTarea()
         {
             Task siguienteTarea = new Task();
             string siguiente = Storage.Instance.currentUser.Tasks.Peek();
@@ -106,8 +106,11 @@ namespace Laboratorio4ED1.Controllers
             {
                 siguienteTarea = Storage.Instance.pendingDevelopersTasks.Search(siguiente);
             }
-
-            return View(siguienteTarea);
+            return siguienteTarea;
+        }
+        public ActionResult SeeTask()
+        {
+            return View(SiguienteTarea());
         }
         #endregion
 
@@ -222,7 +225,7 @@ namespace Laboratorio4ED1.Controllers
         public ActionResult Siguiente()
         {
             Storage.Instance.currentUser.Tasks.Delete();
-            return View("SeeTask");
+            return View("SeeTask", SiguienteTarea());
         }
         public ActionResult Agregar()
         {
