@@ -16,7 +16,6 @@ namespace Laboratorio4ED1.Controllers
         #region Developer
         public ActionResult AddTask()
         {
-
             return View();
         }
         #endregion
@@ -36,13 +35,13 @@ namespace Laboratorio4ED1.Controllers
         {
             return View(ListOfDevelopers());
         }
-       
+
         public ActionResult SeeDeveloperTasks(string Username)
         {
             //List<string> TasksOfDeveloper = new List<string>();
             List<Task> TasksInformation = new List<Task>();
 
-            Storage.Instance.usersList.Find((user)=> {
+            Storage.Instance.usersList.Find((user) => {
                 if (user.Username == Username)
                 {
                     List<Node<PriorityQueueModel>> developerTasks = user.Tasks.CopyOfData();
@@ -65,7 +64,7 @@ namespace Laboratorio4ED1.Controllers
                     return false;
             });
 
-          
+
             //Retornar la vista de las tareas de los developers, falta acceder al diccionario con cada 
             //Titulo de tarea y mandar la lista tipo task con toda la data de las tareas traida del diccionario
             // a la nueva vista tipo listView
@@ -93,9 +92,9 @@ namespace Laboratorio4ED1.Controllers
         public ActionResult SeeTask()
         {
             Task siguienteTarea = new Task();
-            string siguiente = Storage.Instance.currentUser.Tasks.Delete();
+            string siguiente = Storage.Instance.currentUser.Tasks.Peek();
 
-            if (siguiente=="No hay tareas pendientes")
+            if (siguiente == "No hay tareas pendientes")
             {
                 siguienteTarea.Titulo = "No hay tareas pendientes";
                 siguienteTarea.Descripcion = "";
@@ -128,7 +127,7 @@ namespace Laboratorio4ED1.Controllers
                         if (item.Cargo.CompareTo("Developer") == 0)
                         {
                             return View("Menu");
-                            
+
                         }
                         //Si User es Project Manager => Lista de Usuarios
                         else if (item.Cargo.CompareTo("Manager") == 0)
@@ -154,7 +153,7 @@ namespace Laboratorio4ED1.Controllers
         [HttpPost]
         public ActionResult CreateAccount(FormCollection collection)
         {
- 
+
             UserInformation newUser = new UserInformation
             {
                 Nombre = collection["Nombre"],
@@ -213,13 +212,25 @@ namespace Laboratorio4ED1.Controllers
                         return true;
                     }
                     else return false;
-                       
+
                 }
                 );
 
             return View("Menu");
         }
 
-
+        public ActionResult Siguiente()
+        {
+            Storage.Instance.currentUser.Tasks.Delete();
+            return View("SeeTask");
+        }
+        public ActionResult Agregar()
+        {
+            return View("AddTask");
+        }
+        public ActionResult Cerrar()
+        {
+            return View("Index");
+        }
     }
 }

@@ -14,51 +14,59 @@
     <title></title>
 </head>
 <body>
-    <br />
-    <br />
-    <div>
-        <b>
-            <big>
+    @using (Html.BeginForm("SeeTask", "Manager"))
+    {
+        @Html.AntiForgeryToken()
+        <br />
+        <br />
+        <div>
+            <b>
+                <big>
                     @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
-            </big>
-        </b>
-        @Html.DisplayFor(modelItem => Model.Titulo)
-        <br />
-        <b>
-            <big>
+                </big>
+            </b>
+            @Html.DisplayFor(modelItem => Model.Titulo)
+            <br />
+            <b>
+                <big>
                     @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-            </big>
-        </b>
-        @Html.DisplayFor(modelItem => Model.Descripcion)
-        <br />
-        <b>
-            <big>
+                </big>
+            </b>
+            @Html.DisplayFor(modelItem => Model.Descripcion)
+            <br />
+            <b>
+                <big>
                     @Html.LabelFor(model => model.Proyecto, htmlAttributes: new { @class = "control-label col-md-2" })
-            </big>
-        </b>
-        @Html.DisplayFor(modelItem => Model.Proyecto)
-        <br />
-        <b>
-            <big>
+                </big>
+            </b>
+            @Html.DisplayFor(modelItem => Model.Proyecto)
+            <br />
+            <b>
+                <big>
                     @Html.LabelFor(model => model.Prioridad, htmlAttributes: new { @class = "control-label col-md-2" })
-            </big>
-        </b>
-        @Html.DisplayFor(modelItem => Model.Prioridad)
-        <br />
-        <b>
-            <big>
+                </big>
+            </b>
+            @Html.DisplayFor(modelItem => Model.Prioridad)
+            <br />
+            <b>
+                <big>
                     @Html.LabelFor(model => model.Entrega, htmlAttributes: new { @class = "control-label col-md-2" })
-            </big>
-        </b>
-        @Html.DisplayFor(modelItem => Model.Entrega)
+                </big>
+            </b>
+            @Html.DisplayFor(modelItem => Model.Entrega)
 
-    </div>
-    <br />
-    <br />
-    <div style="text-align:right">
-        @Html.ActionLink("- Siguiente tarea ", "SeeTask")
-        @Html.ActionLink("- Agregar tarea -", "AddTask")
-        @Html.ActionLink(" Cerrar sesion -", "Index")
-    </div>
-</body>
+        </div>
+        <br />
+        <br />
+        <div style="display:inline-block">
+            @Html.ActionLink("Marcar como terminada", "Siguiente", null, new { @class = "btn btn-primary btn-lg" })
+        </div>
+        <div style="display:inline-block">
+            @Html.ActionLink("Agregar tarea", "Agregar", null, new { @class = "btn btn-primary btn-lg" })
+        </div>
+        <div style="display:inline-block">
+            @Html.ActionLink("Cerrar sesion", "Cerrar", null, new { @class = "btn btn-primary btn-lg" })
+        </div>
+    }
+    </body>
 </html>
