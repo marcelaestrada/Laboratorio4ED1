@@ -253,43 +253,54 @@ namespace Laboratorio4ED1.Controllers
         }
         public void Jsontolist()
         {
-            int priority = 0;
-            List<UserInformation> listUser = new List<UserInformation>();
-            HashTable<string, Task> hashTask = new HashTable<string, Task>(11);
-            string rutaUser = Path.Combine(Server.MapPath("~/Files"), "Users.json");
-            string rutaTask = Path.Combine(Server.MapPath("~/Files"), "PendingTasks.json");
-
-            StreamReader jsonU = new StreamReader(rutaUser);
-            string jsonUsers = jsonU.ReadToEnd();
-            UserInformation[] users = JsonConvert.DeserializeObject<UserInformation[]>(jsonUsers);
-            foreach(var item in users)
+            try
             {
-                listUser.Add(item);
-            }
+                int priority = 0;
+                List<UserInformation> listUser = new List<UserInformation>();
+                HashTable<string, Task> hashTask = new HashTable<string, Task>(11);
+                string rutaUser = Path.Combine(Server.MapPath("~/Files"), "Users.json");
+                string rutaTask = Path.Combine(Server.MapPath("~/Files"), "PendingTasks.json");
 
-            StreamReader jsonT = new StreamReader(rutaTask);
-            string jsonTasks = jsonT.ReadToEnd();
-            Task[] tasks = JsonConvert.DeserializeObject<Task[]>(jsonTasks);
-            foreach(var item in tasks)
-            {
-                hashTask.Insert(item.Titulo, item);
-            }
-            
-            Storage.Instance.usersList = listUser;
-            Storage.Instance.pendingDevelopersTasks = hashTask;
-
-            List<Task> listaHash = new List<Task>();
-            listaHash = Storage.Instance.pendingDevelopersTasks.AllDataLikeList();
-            foreach(var item in Storage.Instance.usersList)
-            {
-                foreach(var item2 in listaHash)
+                StreamReader jsonU = new StreamReader(rutaUser);
+                string jsonUsers = jsonU.ReadToEnd();
+                UserInformation[] users = JsonConvert.DeserializeObject<UserInformation[]>(jsonUsers);
+                foreach (var item in users)
                 {
-                    if (item.Username == item2.UserName)
+                    listUser.Add(item);
+                }
+
+                StreamReader jsonT = new StreamReader(rutaTask);
+                string jsonTasks = jsonT.ReadToEnd();
+                Task[] tasks = JsonConvert.DeserializeObject<Task[]>(jsonTasks);
+                foreach (var item in tasks)
+                {
+                    hashTask.Insert(item.Titulo, item);
+                }
+
+                Storage.Instance.usersList = listUser;
+                Storage.Instance.pendingDevelopersTasks = hashTask;
+
+                List<Task> listaHash = new List<Task>();
+                listaHash = Storage.Instance.pendingDevelopersTasks.AllDataLikeList();
+                foreach (var item in Storage.Instance.usersList)
+                {
+                    foreach (var item2 in listaHash)
                     {
-                        item.Tasks.Insert(setPriority(item2.Prioridad), item2.Titulo);
+                        if (item.Username == item2.UserName)
+                        {
+                            item.Tasks.Insert(setPriority(item2.Prioridad), item2.Titulo);
+                        }
                     }
                 }
             }
+            catch (Exception e)
+            {
+
+                e.Message.ToString();
+            }
+           
+
+
 
         }
 
