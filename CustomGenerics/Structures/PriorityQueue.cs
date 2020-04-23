@@ -102,19 +102,11 @@ namespace CustomGenerics.Structures
             Inserting(value, data);
         }
 
-        /// <summary>
-        /// Return and delete the first values
-        /// </summary>
-        /// <returns></returns>
         public string Delete()
         {
             return Deleting();
         }
 
-        /// <summary>
-        /// Return the head value of the queue without remove it. 
-        /// </summary>
-        /// <returns></returns>
         public string Peek()
         {
             if (size > -1)
@@ -123,9 +115,6 @@ namespace CustomGenerics.Structures
                 return "No hay tareas pendientes";
         }
 
-        /// <summary>
-        /// Crea una copia de la lista de prioridad.
-        /// </summary>
         public List<Node<T>> CopyOfData()
         {
             var CopyDataList = this.priorityQueue;

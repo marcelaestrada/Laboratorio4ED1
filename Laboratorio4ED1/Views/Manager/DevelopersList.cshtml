@@ -1,13 +1,12 @@
 ﻿@model IEnumerable<Laboratorio4ED1.Models.UserInformation>
 
 @{
-    ViewBag.Title = "Developers List";
+    ViewBag.Title = "Lista de desarrolladores";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DevelopersList</h2>
+<h2>Lista de desarrolladores</h2>
 
-<br />
 <br />
 
 <table class="table">
@@ -37,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.ActionLink(item.Nombre + "'s List of Tasks", "SeeDeveloperTasks", new { UserName = item.Username }, new { @class = "btn btn-primary btn-lg" })
+                @Html.ActionLink("Lista de tareas de " + item.Nombre , "SeeDeveloperTasks", new { UserName = item.Username }, new { @class = "btn btn-primary btn-lg" })
 
             </td>
         </tr>
