@@ -122,7 +122,7 @@ namespace Laboratorio4ED1.Controllers
 
         [HttpPost]
         public ActionResult Index(FormCollection collection)
-        {           
+        {
             foreach (var item in Storage.Instance.usersList)
             {
                 if (collection["user"] == item.Username)
@@ -162,18 +162,26 @@ namespace Laboratorio4ED1.Controllers
         [HttpPost]
         public ActionResult CreateAccount(FormCollection collection)
         {
+            
 
-            UserInformation newUser = new UserInformation
+            if (!UserExist(collection["Username"]))
             {
-                Nombre = collection["Nombre"],
-                Cargo = collection["Cargo"],
-                Email = collection["Email"],
-                Username = collection["Username"],
-                Password = collection["Password"],
+                UserInformation newUser = new UserInformation
+                {
+                    Nombre = collection["Nombre"],
+                    Cargo = collection["Cargo"],
+                    Email = collection["Email"],
+                    Username = collection["Username"],
+                    Password = collection["Password"],
 
-            };
-
-            Storage.Instance.usersList.Add(newUser);
+                };
+                Storage.Instance.usersList.Add(newUser);
+            }
+            else
+            {
+                Response.Write("<script>alert('Este nombre de usuario ya se encuentra en uso!')</script>");
+                return View("CreateAccount");
+            }
 
             UpdateDB();
             return View("Index");
@@ -185,35 +193,48 @@ namespace Laboratorio4ED1.Controllers
             setPriority(collection["Prioridad"]);
             PriorityQueueModel data = new PriorityQueueModel() { Priority = prioridad, Tarea = collection["Titulo"] };
 
-
-            Task nuevaTarea = new Task
+            if (!Storage.Instance.pendingDevelopersTasks.KeyExist(collection["Titulo"]))
             {
-                Titulo = collection["Titulo"],
-                Descripcion = collection["Descripcion"],
-                Proyecto = collection["Proyecto"],
-                Prioridad = collection["Prioridad"],
-                Entrega = collection["Entrega"],
-                UserName = Storage.Instance.currentUser.Username
-            };
-            Storage.Instance.usersList.Find(
-                (user) =>
+                Task nuevaTarea = new Task
                 {
-
-                    if (user.Username.CompareTo(Storage.Instance.currentUser.Username) == 0)
+                    Titulo = collection["Titulo"],
+                    Descripcion = collection["Descripcion"],
+                    Proyecto = collection["Proyecto"],
+                    Prioridad = collection["Prioridad"],
+                    Entrega = collection["Entrega"],
+                    UserName = Storage.Instance.currentUser.Username
+                };
+                Storage.Instance.usersList.Find(
+                    (user) =>
                     {
+
+                        if (user.Username.CompareTo(Storage.Instance.currentUser.Username) == 0)
+                        {
                         //Debug para ver si la data realmente se asigna...
                         Storage.Instance.currentUser.Tasks.Insert(data.Priority, data.Tarea);
-                        Storage.Instance.pendingDevelopersTasks.Insert(nuevaTarea.Titulo, nuevaTarea);
-                        return true;
-                    }
-                    else return false;
+                            Storage.Instance.pendingDevelopersTasks.Insert(nuevaTarea.Titulo, nuevaTarea);
+                            return true;
+                        }
+                        else return false;
 
-                }
-                );
+                    }
+                    );
+            }
+            else
+            {
+                Response.Write("<script>alert('Esta tarea ya existe!')</script>");
+                return View("AddTask");
+            }
+
+
 
             UpdateDB();
             return View("Menu");
         }
+
+
+
+
         public ActionResult Siguiente()
         {
             Storage.Instance.currentUser.Tasks.Delete();
@@ -230,7 +251,8 @@ namespace Laboratorio4ED1.Controllers
         }
         public void UpdateDB()
         {
-            try {
+            try
+            {
                 string userToJson = JsonConvert.SerializeObject(
                 Storage.Instance.usersList);
 
@@ -299,7 +321,7 @@ namespace Laboratorio4ED1.Controllers
 
                 e.Message.ToString();
             }
-           
+
 
 
 
@@ -320,6 +342,19 @@ namespace Laboratorio4ED1.Controllers
                 prioridad = 1;
             }
             return prioridad;
+        }
+
+        public bool UserExist(string userName)
+        {
+            foreach (var item in Storage.Instance.usersList)
+            {
+                if (item.Username.CompareTo(userName)==0)
+                {
+                    return true;
+                    break;
+                }
+            }
+            return false;
         }
     }
 }
