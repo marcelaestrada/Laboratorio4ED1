@@ -13,11 +13,7 @@ namespace CustomGenerics.Structures
         //ListArray. 
         List<T>[] dataArray;
         int arrayLength;
-        /// <summary>
-        /// Constructor of HashTable. 
-        /// Write the arrayLength param in order to set the array of the hash teble. 
-        /// </summary>
-        /// <param name="arrayLength"></param>
+
         public HashTable(int arrayLength)
         {
             this.arrayLength = arrayLength;
@@ -41,12 +37,6 @@ namespace CustomGenerics.Structures
             return retorno;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <returns>Retorna false cuando la llave existe con anterioridad</returns>
         public void Insert(S key, T value)
         {
             if (!KeyExist(key))
@@ -91,11 +81,6 @@ namespace CustomGenerics.Structures
 
         }
 
-        /// <summary>
-        /// Return the complete data set in the hashmap, 
-        /// like List<T>
-        /// </summary>
-        /// <returns></returns>
         public List<T> AllDataLikeList()
         {
             List<T> retorno = new List<T>();

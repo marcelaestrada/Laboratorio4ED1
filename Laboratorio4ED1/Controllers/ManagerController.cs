@@ -16,8 +16,6 @@ namespace Laboratorio4ED1.Controllers
     public class ManagerController : Controller
     {
 
-
-
         #region Developer
         public ActionResult AddTask()
         {
@@ -232,24 +230,27 @@ namespace Laboratorio4ED1.Controllers
         }
         public void UpdateDB()
         {
-            string userToJson = JsonConvert.SerializeObject(
+            try {
+                string userToJson = JsonConvert.SerializeObject(
                 Storage.Instance.usersList);
 
-            string directoryPath = Path.Combine(Server.MapPath("~/Files"),
-                "Users.json");
+                string directoryPath = Path.Combine(Server.MapPath("~/Files"),
+                    "Users.json");
 
 
-            System.IO.File.WriteAllText(directoryPath, userToJson);
+                System.IO.File.WriteAllText(directoryPath, userToJson);
 
 
-            List<Task> tasks = Storage.Instance.pendingDevelopersTasks.AllDataLikeList();
-            string userToJson2 = JsonConvert.SerializeObject(tasks);
+                List<Task> tasks = Storage.Instance.pendingDevelopersTasks.AllDataLikeList();
+                string userToJson2 = JsonConvert.SerializeObject(tasks);
 
-            string directoryPath2 = Path.Combine(Server.MapPath("~/Files"),
-                "PendingTasks.json");
+                string directoryPath2 = Path.Combine(Server.MapPath("~/Files"),
+                    "PendingTasks.json");
 
 
-            System.IO.File.WriteAllText(directoryPath2, userToJson2);
+                System.IO.File.WriteAllText(directoryPath2, userToJson2);
+            }
+            catch { }
         }
         public void Jsontolist()
         {
@@ -303,7 +304,6 @@ namespace Laboratorio4ED1.Controllers
 
 
         }
-
         public int setPriority(string prior)
         {
             int prioridad = 0;
