@@ -82,6 +82,7 @@ namespace Laboratorio4ED1.Controllers
         //Login
         public ActionResult Index()
         {
+            UpdateDB();
             return View();
         }
         //Sign Up
@@ -116,6 +117,7 @@ namespace Laboratorio4ED1.Controllers
         }
         public ActionResult SeeTask()
         {
+            UpdateDB();
             return View(SiguienteTarea());
         }
         #endregion
@@ -123,6 +125,7 @@ namespace Laboratorio4ED1.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection collection)
         {
+            
             foreach (var item in Storage.Instance.usersList)
             {
                 if (collection["user"] == item.Username)
@@ -175,6 +178,7 @@ namespace Laboratorio4ED1.Controllers
 
             Storage.Instance.usersList.Add(newUser);
 
+            UpdateDB();
             return View("Index");
         }
 
@@ -227,12 +231,14 @@ namespace Laboratorio4ED1.Controllers
                 }
                 );
 
+            UpdateDB();
             return View("Menu");
         }
 
         public ActionResult Siguiente()
         {
             Storage.Instance.currentUser.Tasks.Delete();
+            UpdateDB();
             return View("SeeTask", SiguienteTarea());
         }
         public ActionResult Agregar()
@@ -244,7 +250,8 @@ namespace Laboratorio4ED1.Controllers
             return View("Index");
         }
 
-        public ActionResult UpdateUsersDB()
+      
+        public void UpdateDB()
         {
             string userToJson = JsonConvert.SerializeObject(
                 Storage.Instance.usersList);
@@ -252,7 +259,7 @@ namespace Laboratorio4ED1.Controllers
             string directoryPath = Path.Combine(Server.MapPath("~/Files"),
                 "Users.json");
 
-           
+
             System.IO.File.WriteAllText(directoryPath, userToJson);
 
 
@@ -265,13 +272,8 @@ namespace Laboratorio4ED1.Controllers
 
             System.IO.File.WriteAllText(directoryPath2, userToJson2);
 
-           return (Storage.Instance.currentUser.Cargo.CompareTo("Developer") == 0)?
-                 View("Menu"): View("GoToUsers");
-
-            
 
         }
 
-       
     }
 }
