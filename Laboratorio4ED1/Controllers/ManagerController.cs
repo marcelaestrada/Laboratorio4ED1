@@ -82,7 +82,7 @@ namespace Laboratorio4ED1.Controllers
         //Login
         public ActionResult Index()
         {
-            UpdateDB();
+            Jsontolist();
             return View();
         }
         //Sign Up
@@ -124,8 +124,7 @@ namespace Laboratorio4ED1.Controllers
 
         [HttpPost]
         public ActionResult Index(FormCollection collection)
-        {
-            
+        {           
             foreach (var item in Storage.Instance.usersList)
             {
                 if (collection["user"] == item.Username)
@@ -181,28 +180,11 @@ namespace Laboratorio4ED1.Controllers
             UpdateDB();
             return View("Index");
         }
-
         [HttpPost]
         public ActionResult AddTask(FormCollection collection)
         {
-            #region
-
             int prioridad = 0;
-            if (collection["Prioridad"] == "Alta")
-            {
-                prioridad = 5;
-            }
-            else if (collection["Prioridad"] == "Media")
-            {
-                prioridad = 3;
-            }
-            else if (collection["Prioridad"] == "Baja")
-            {
-                prioridad = 1;
-            }
-
-            #endregion
-
+            setPriority(collection["Prioridad"]);
             PriorityQueueModel data = new PriorityQueueModel() { Priority = prioridad, Tarea = collection["Titulo"] };
 
 
@@ -234,7 +216,6 @@ namespace Laboratorio4ED1.Controllers
             UpdateDB();
             return View("Menu");
         }
-
         public ActionResult Siguiente()
         {
             Storage.Instance.currentUser.Tasks.Delete();
@@ -249,8 +230,6 @@ namespace Laboratorio4ED1.Controllers
         {
             return View("Index");
         }
-
-      
         public void UpdateDB()
         {
             string userToJson = JsonConvert.SerializeObject(
@@ -271,9 +250,65 @@ namespace Laboratorio4ED1.Controllers
 
 
             System.IO.File.WriteAllText(directoryPath2, userToJson2);
+        }
+        public void Jsontolist()
+        {
+            int priority = 0;
+            List<UserInformation> listUser = new List<UserInformation>();
+            HashTable<string, Task> hashTask = new HashTable<string, Task>(11);
+            string rutaUser = Path.Combine(Server.MapPath("~/Files"), "Users.json");
+            string rutaTask = Path.Combine(Server.MapPath("~/Files"), "PendingTasks.json");
 
+            StreamReader jsonU = new StreamReader(rutaUser);
+            string jsonUsers = jsonU.ReadToEnd();
+            UserInformation[] users = JsonConvert.DeserializeObject<UserInformation[]>(jsonUsers);
+            foreach(var item in users)
+            {
+                listUser.Add(item);
+            }
+
+            StreamReader jsonT = new StreamReader(rutaTask);
+            string jsonTasks = jsonT.ReadToEnd();
+            Task[] tasks = JsonConvert.DeserializeObject<Task[]>(jsonTasks);
+            foreach(var item in tasks)
+            {
+                hashTask.Insert(item.Titulo, item);
+            }
+            
+            Storage.Instance.usersList = listUser;
+            Storage.Instance.pendingDevelopersTasks = hashTask;
+
+            List<Task> listaHash = new List<Task>();
+            listaHash = Storage.Instance.pendingDevelopersTasks.AllDataLikeList();
+            foreach(var item in Storage.Instance.usersList)
+            {
+                foreach(var item2 in listaHash)
+                {
+                    if (item.Username == item2.UserName)
+                    {
+                        item.Tasks.Insert(setPriority(item2.Prioridad), item2.Titulo);
+                    }
+                }
+            }
 
         }
 
+        public int setPriority(string prior)
+        {
+            int prioridad = 0;
+            if (prior == "Alta")
+            {
+                prioridad = 5;
+            }
+            else if (prior == "Media")
+            {
+                prioridad = 3;
+            }
+            else if (prior == "Baja")
+            {
+                prioridad = 1;
+            }
+            return prioridad;
+        }
     }
 }

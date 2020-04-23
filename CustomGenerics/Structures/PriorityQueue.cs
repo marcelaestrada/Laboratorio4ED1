@@ -65,6 +65,11 @@ namespace CustomGenerics.Structures
 
         void Inserting(int p, string data)
         {
+            if (size == 1)
+            {
+                size = -1;
+            }
+
             Node<T> newNode = new Node<T>();
             newNode.priority = p;
             newNode.value = data;
