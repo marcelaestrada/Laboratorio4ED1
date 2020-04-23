@@ -244,7 +244,7 @@ namespace Laboratorio4ED1.Controllers
             return View("Index");
         }
 
-        public ActionResult UpdateUserDB()
+        public ActionResult UpdateUsersDB()
         {
             string userToJson = JsonConvert.SerializeObject(
                 Storage.Instance.usersList);
@@ -256,8 +256,22 @@ namespace Laboratorio4ED1.Controllers
             System.IO.File.WriteAllText(directoryPath, userToJson);
 
 
-           return  View("Menu");
+            List<Task> tasks = Storage.Instance.pendingDevelopersTasks.AllDataLikeList();
+            string userToJson2 = JsonConvert.SerializeObject(tasks);
+
+            string directoryPath2 = Path.Combine(Server.MapPath("~/Files"),
+                "PendingTasks.json");
+
+
+            System.IO.File.WriteAllText(directoryPath2, userToJson2);
+
+           return (Storage.Instance.currentUser.Cargo.CompareTo("Developer") == 0)?
+                 View("Menu"): View("GoToUsers");
+
+            
 
         }
+
+       
     }
 }

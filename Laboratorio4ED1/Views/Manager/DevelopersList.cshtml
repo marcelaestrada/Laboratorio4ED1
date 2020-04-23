@@ -6,6 +6,11 @@
 }
 
 <h2>DevelopersList</h2>
+<br />
+<br />
+@Html.ActionLink("Actualizar BD", "UpdateUsersDB", null, new { @class = "btn btn-primary btn-lg" })
+<br />
+<br />
 
 <table class="table">
     <tr>
@@ -21,23 +26,24 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cargo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.ActionLink(item.Nombre + "'s List of Tasks", "SeeDeveloperTasks", new { UserName = item.Username }, new { @class = "btn btn-primary btn-lg" })
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cargo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink(item.Nombre + "'s List of Tasks", "SeeDeveloperTasks", new { UserName = item.Username }, new { @class = "btn btn-primary btn-lg" })
 
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
 <br />
