@@ -7,13 +7,16 @@ using Laboratorio4ED1.ModelViews;
 using Laboratorio4ED1.Helpers;
 using Laboratorio4ED1.Models;
 using CustomGenerics.Structures;
+using System.IO;
+using Newtonsoft.Json;
+
 
 namespace Laboratorio4ED1.Controllers
 {
     public class ManagerController : Controller
     {
 
-       
+
 
         #region Developer
         public ActionResult AddTask()
@@ -43,7 +46,8 @@ namespace Laboratorio4ED1.Controllers
             //List<string> TasksOfDeveloper = new List<string>();
             List<Task> TasksInformation = new List<Task>();
 
-            Storage.Instance.usersList.Find((user) => {
+            Storage.Instance.usersList.Find((user) =>
+            {
                 if (user.Username == Username)
                 {
                     List<Node<PriorityQueueModel>> developerTasks = user.Tasks.CopyOfData();
@@ -208,7 +212,8 @@ namespace Laboratorio4ED1.Controllers
                 UserName = Storage.Instance.currentUser.Username
             };
             Storage.Instance.usersList.Find(
-                (user) => {
+                (user) =>
+                {
 
                     if (user.Username.CompareTo(Storage.Instance.currentUser.Username) == 0)
                     {
@@ -237,6 +242,22 @@ namespace Laboratorio4ED1.Controllers
         public ActionResult Cerrar()
         {
             return View("Index");
+        }
+
+        public ActionResult UpdateUserDB()
+        {
+            string userToJson = JsonConvert.SerializeObject(
+                Storage.Instance.usersList);
+
+            string directoryPath = Path.Combine(Server.MapPath("~/Files"),
+                "Users.json");
+
+           
+            System.IO.File.WriteAllText(directoryPath, userToJson);
+
+
+           return  View("Menu");
+
         }
     }
 }
