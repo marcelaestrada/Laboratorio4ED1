@@ -8,6 +8,7 @@ namespace CustomGenerics.Structures
     {
         List<Node<T>> priorityQueue = new List<Node<T>>();
         public int size = -1;
+        T generico;
 
         int reverseEquation(int x)
         {
@@ -63,7 +64,7 @@ namespace CustomGenerics.Structures
             }
         }
 
-        void Inserting(int p, string data)
+        void Inserting(int p, T data)
         {
             if (size == 1)
             {
@@ -80,11 +81,11 @@ namespace CustomGenerics.Structures
         }
 
         
-        string Deleting()
+        T Deleting()
         {
             if (size > -1)
             {
-                string data = priorityQueue[0].value;
+                T data = priorityQueue[0].value;
                 priorityQueue[0] = priorityQueue[size];
                 priorityQueue.RemoveAt(size);
                 size--;
@@ -93,26 +94,26 @@ namespace CustomGenerics.Structures
             }
             else
             {
-                return "No hay tareas pendientes";
+                return generico;
             }
         }
 
-        public void Insert(int value, string data)
+        public void Insert(int value, T data)
         {
             Inserting(value, data);
         }
 
-        public string Delete()
+        public T Delete()
         {
             return Deleting();
         }
 
-        public string Peek()
+        public T Peek()
         {
             if (size > -1)
                 return priorityQueue[0].value;
             else
-                return "No hay tareas pendientes";
+                return generico;
         }
 
         public List<Node<T>> CopyOfData()
